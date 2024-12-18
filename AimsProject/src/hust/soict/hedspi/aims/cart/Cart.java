@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import hust.soict.hedspi.aims.media.Media;
 
 public class Cart {
@@ -13,12 +15,24 @@ public class Cart {
 	
 	public void addMedia(Media media) {
 		if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
-			System.out.println("The cart is almost full.");
+			// Hiển thị thông báo giỏ hàng đầy
+	        JOptionPane.showMessageDialog(null, 
+	            "The cart is almost full.", 
+	            "Cart Full", 
+	            JOptionPane.WARNING_MESSAGE);
 		} else if (itemsOrdered.contains(media)){
-			System.out.println(media.getTitle() + " is already in the cart.");
+			// Hiển thị thông báo sản phẩm đã có trong giỏ hàng
+			JOptionPane.showMessageDialog(null, 
+		            media.getTitle() + " is already in the cart.", 
+		            "Duplicate Item", 
+		            JOptionPane.INFORMATION_MESSAGE);
 		} else {
 			itemsOrdered.add(media);
-			System.out.println(media.getTitle() + "has been added.");
+			// Hiển thị thông báo sản phẩm đã được thêm vào giỏ hàng
+	        JOptionPane.showMessageDialog(null, 
+	            media.getTitle() + " has been added.", 
+	            "Item Added", 
+	            JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 	

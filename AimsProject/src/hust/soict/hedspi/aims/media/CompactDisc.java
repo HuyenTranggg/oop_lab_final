@@ -70,7 +70,7 @@ public class CompactDisc extends Media implements Playable{
 				" - Category: " + this.getCategory() + 
 				" - Artist: " + this.getArtist() + 
 				" - Length: " + this.getLength() + 
-				" - Cost: " + this.getCost() + "$\n";
+				" - Cost: " + this.getCost() + "$";
 	}
 
 }
