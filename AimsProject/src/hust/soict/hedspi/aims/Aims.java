@@ -8,6 +8,7 @@ import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 import hust.soict.hedspi.aims.media.Disc;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Track;
+import hust.soict.hedspi.aims.screen.StoreScreen;
 import hust.soict.hedspi.aims.store.Store;
 
 public class Aims {
@@ -477,7 +478,8 @@ public class Aims {
 							break;
 						case 1:
 							clearConsole();
-							storeMenu(scanner);
+							// storeMenu(scanner);
+							new StoreScreen(store);
 							break;
 						case 2:
 							clearConsole();

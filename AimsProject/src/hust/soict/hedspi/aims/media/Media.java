@@ -97,8 +97,8 @@ public abstract class Media implements Comparable<Media>{
         }
     }
 	
-	public void play() {
-        System.out.println("Playing media");
+	public String play() {
+        return "Playing media";
     }
 
 }

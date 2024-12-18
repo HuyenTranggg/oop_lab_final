@@ -55,12 +55,14 @@ public class CompactDisc extends Media implements Playable{
 		return totalLength;
 	}
 	
-	public void play() {
-		System.out.println("Playing CD: " + this.getTitle());
-		System.out.println("CD length: " + this.getLength());
-		for (Track track : tracks) {
-			track.play();
-		}
+	public String play() {
+		StringBuilder playInfo = new StringBuilder();
+	    playInfo.append("Playing CD: ").append(this.getTitle()).append("\n");
+	    playInfo.append("CD length: ").append(this.getLength()).append(" minutes\n");
+	    for (Track track : tracks) {
+	        playInfo.append(track.play()); // track.play() sẽ cần trả về String
+	    }
+	    return playInfo.toString();
 	}
 	
 	public String toString() {
