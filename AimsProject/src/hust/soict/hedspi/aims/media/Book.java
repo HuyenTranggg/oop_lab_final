@@ -50,7 +50,7 @@ public class Book extends Media{
 	public String toString() {
 		return "Book: " + this.getTitle() + 
 				" - Category: " + this.getCategory() + 
-				" - Cost: " + this.getCost() + "$\n";
+				" - Cost: " + this.getCost() + "$";
 	}
 
 }

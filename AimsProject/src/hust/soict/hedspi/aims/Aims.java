@@ -479,7 +479,7 @@ public class Aims {
 						case 1:
 							clearConsole();
 							// storeMenu(scanner);
-							new StoreScreen(store);
+							new StoreScreen(store, cart);
 							break;
 						case 2:
 							clearConsole();

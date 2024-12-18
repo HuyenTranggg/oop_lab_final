@@ -10,16 +10,18 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import hust.soict.hedspi.aims.cart.Cart;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
 
 public class MediaStore extends JPanel{
     private Media media;
-    public MediaStore(Media media){
+    public MediaStore(Media media, Cart cart){
         
         this.media = media;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -33,8 +35,15 @@ public class MediaStore extends JPanel{
 
         JPanel container = new JPanel();
         container.setLayout(new FlowLayout(FlowLayout.CENTER));
-
-        container.add(new JButton("Add to cart"));
+        
+        // them nut Add To Cart
+        JButton addToCartButton = new JButton("Add to cart");
+        container.add(addToCartButton);
+        
+        // them su kien cho nut add to cart
+        addToCartButton.addActionListener(e -> {
+            cart.addMedia(media); // Thêm media vào giỏ hàng
+        });
         
         if(media instanceof Playable) {
         	
