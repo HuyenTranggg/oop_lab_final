@@ -8,8 +8,11 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
@@ -32,8 +35,42 @@ public class MediaStore extends JPanel{
         container.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         container.add(new JButton("Add to cart"));
+        
         if(media instanceof Playable) {
-            container.add(new JButton("Play"));
+        	
+        	// neu media la playable, them nut Play
+        	JButton playButton = new JButton("Play");
+            container.add(playButton);
+            
+            // them su kien cho nut play
+            playButton.addActionListener(e -> {
+            	
+                // Tạo và hiển thị JDialog
+                JDialog playDialog = new JDialog();
+                playDialog.setTitle("Playing Media");
+                playDialog.setSize(300, 200);
+                playDialog.setLocationRelativeTo(null); // Căn giữa màn hình
+
+                // Hiển thị thông báo
+                JLabel message = new JLabel("Playing: " + media.getTitle());
+                message.setHorizontalAlignment(JLabel.CENTER);
+                playDialog.add(message);
+
+                // Gọi phương thức play() từ Playable
+                String playInfo = media.play();
+                
+                // Hiển thị thông tin trong JTextArea (cho phép hiển thị nhiều dòng)
+                JTextArea textArea = new JTextArea(playInfo);
+                textArea.setEditable(false);
+                textArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+                JScrollPane scrollPane = new JScrollPane(textArea); // Cho phép cuộn nếu nội dung dài
+
+                // Thêm JTextArea vào JDialog
+                playDialog.add(scrollPane);
+                
+                // Hiển thị JDialog
+                playDialog.setVisible(true);
+            });
         }
 
         this.add(Box.createVerticalGlue());
@@ -44,5 +81,7 @@ public class MediaStore extends JPanel{
 
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
+    
+    
 }
 
