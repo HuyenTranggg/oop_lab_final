@@ -1,17 +1,20 @@
 package hust.soict.hedspi.aims.cart;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.Collections; // Để sắp xếp danh sách
+import java.util.Iterator;    // Để duyệt danh sách bằng Iterator
+import java.util.List;        // Để xử lý danh sách cơ bản
+import javafx.collections.FXCollections; // Để khởi tạo danh sách observable
+import javafx.collections.ObservableList; // Để sử dụng danh sách observable trong JavaFX
+import javax.swing.JOptionPane; // Để hiển thị các thông báo dạng pop-up (dialog)
 
 import hust.soict.hedspi.aims.media.Media;
+
 
 public class Cart {
 	public static final int MAX_NUMBERS_ORDERED = 20;
 	
-	private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 	
 	public void addMedia(Media media) {
 		if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
@@ -174,5 +177,9 @@ public class Cart {
 		}
 		return null;
 	}
+    
+    public ObservableList<Media> getItemsOrdered() {
+        return itemsOrdered;
+    }
 
 }

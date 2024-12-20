@@ -8,6 +8,7 @@ import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 import hust.soict.hedspi.aims.media.Disc;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Track;
+import hust.soict.hedspi.aims.screen.CartScreen;
 import hust.soict.hedspi.aims.screen.StoreScreen;
 import hust.soict.hedspi.aims.store.Store;
 
@@ -487,7 +488,8 @@ public class Aims {
 							break;
 						case 3:
 							clearConsole();
-		                    cartMenu(scanner);
+		                    // cartMenu(scanner);
+							new CartScreen(cart);
 		                    break;
 		                default:
 		                	clearConsole();
