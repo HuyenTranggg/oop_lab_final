@@ -24,6 +24,8 @@ public class CartScreen extends JFrame{
 
         this.setTitle("Cart");
         this.setVisible(true);
+        setSize(1024, 768); // Đặt kích thước mặc định
+        
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
