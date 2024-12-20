@@ -22,8 +22,8 @@
       <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="Options">
+               <menus>
+                  <Menu mnemonicParsing="false" text="Options">
                      <items>
                         <Menu mnemonicParsing="false" text="Update Store">
                           <items>
@@ -35,9 +35,8 @@
                         <MenuItem mnemonicParsing="false" text="View Store" />
                         <MenuItem mnemonicParsing="false" text="View Cart" />
                      </items>
-                </Menu>
-              </menus>
-            </MenuBar>
+                  </Menu>
+               </menus></MenuBar>
             <Label text="CART" textFill="AQUA">
                <font>
                   <Font size="50.0" />
