@@ -53,13 +53,38 @@ public class StoreScreen extends JFrame{
 		JMenu menu = new JMenu("Options");
 	
 		JMenu smUpdateStore = new JMenu("Update Store");
-		smUpdateStore.add(new JMenuItem("Add Book"));
-		smUpdateStore.add(new JMenuItem("Add CD"));
-		smUpdateStore.add(new JMenuItem("Add DVD"));
+		
+		JMenuItem addBook = new JMenuItem("Add Book");
+		addBook.addActionListener(e -> {
+	        new AddBookToStoreScreen(store, cart);
+	        dispose();
+	    });
+		
+		JMenuItem addCD = new JMenuItem("Add CD");
+		addCD.addActionListener(e -> {
+	        new AddCompactDiscToStoreScreen(store, cart);
+	        dispose();
+	    });
+		
+		JMenuItem addDVD = new JMenuItem("Add DVD");
+		addDVD.addActionListener(e -> {
+	        new AddDigitalVideoDiscToStoreScreen(store, cart);
+	        dispose();
+	    });
+		
+		smUpdateStore.add(addBook);
+	    smUpdateStore.add(addCD);
+	    smUpdateStore.add(addDVD);
 		
 		menu.add(smUpdateStore);
 		menu.add(new JMenuItem("View store"));
-		menu.add(new JMenuItem("View cart"));
+		
+		JMenuItem viewCartItem = new JMenuItem("View Cart");
+        viewCartItem.addActionListener(e -> {
+            new CartScreen(store, cart);
+        });
+        menu.add(viewCartItem);
+		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
 		menuBar.add(menu);
@@ -79,7 +104,7 @@ public class StoreScreen extends JFrame{
 		cartButton.setPreferredSize(new Dimension(100, 50));
 		cartButton.setMaximumSize(new Dimension(100, 50));
 		cartButton.addActionListener(e -> {
-	        new CartScreen(cart); // Mở cửa sổ CartScreen
+	        new CartScreen(store, cart); // Mở cửa sổ CartScreen
 	    });
 		
 		header.add(Box.createRigidArea(new Dimension(10, 10)));
@@ -90,17 +115,25 @@ public class StoreScreen extends JFrame{
 		
 		return header;
 	}
-	
-	JPanel createCenter() {
-		JPanel center = new JPanel();
-		center.setLayout(new GridLayout(3, 3, 2, 2));
-		
-		ArrayList<Media> mediaInStore = store.getItemsInStore();
-		for(int i = 0; i < 9; i++) {
-			MediaStore cell = new MediaStore(mediaInStore.get(i), cart);
-			center.add(cell);
-		}
-		
-		return center;
+
+	private JPanel createCenter() {
+	    JPanel center = new JPanel();
+	    center.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // FlowLayout sắp xếp từ trái sang phải
+	    updateCenter(center); // Cập nhật giao diện
+	    return center;
 	}
+
+	private void updateCenter(JPanel center) {
+	    center.removeAll(); // Xóa tất cả nội dung cũ
+	    ArrayList<Media> mediaInStore = store.getItemsInStore();
+	    int itemCount = mediaInStore.size(); // Lấy tất cả các item trong store
+	    for (int i = 0; i < itemCount; i++) {
+	        MediaStore cell = new MediaStore(mediaInStore.get(i), cart);
+	        center.add(cell); // Thêm item vào center
+	    }
+	    center.revalidate(); // Cập nhật lại bố cục
+	    center.repaint();    // Vẽ lại giao diện
+	}
+
+	
 }
