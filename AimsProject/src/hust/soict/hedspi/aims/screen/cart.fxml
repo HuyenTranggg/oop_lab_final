@@ -83,7 +83,7 @@
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
                 <Button fx:id="btnPlay" mnemonicParsing="false" text="Play" />
-                  <Button fx:id="btnRemove" mnemonicParsing="false" text="Remove" />
+                  <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemovePressed" text="Remove" />
               </buttons>
             </ButtonBar>
          </children>
