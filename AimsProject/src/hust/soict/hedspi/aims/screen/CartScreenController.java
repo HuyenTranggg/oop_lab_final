@@ -5,14 +5,19 @@ import java.util.function.Predicate;
 import hust.soict.hedspi.aims.cart.Cart;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,6 +33,12 @@ public class CartScreenController {
 
     @FXML
     private Button btnRemove;
+    
+    @FXML
+    private Button btnPlaceOrder;
+    
+    @FXML
+    private Label lblTotalCost;
     
     @FXML
     private TextField tfFilter;
@@ -94,6 +105,15 @@ public class CartScreenController {
 				showFilteredMedia(newValue);
 			}
 		});
+		
+		ListChangeListener<Media> listChangeListener = change -> updateTotalCost();
+		cart.getItemsOrdered().addListener(listChangeListener);
+
+		
+		// Initial total cost update
+        updateTotalCost();
+        
+        
 	}
 	
 	void updateButtonBar(Media media) {
@@ -132,4 +152,39 @@ public class CartScreenController {
 
         filteredList.setPredicate(filterPredicate);
     }
+	
+	@FXML
+    private void btnPlaceOrderPressed(ActionEvent event) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Order Placed");
+        alert.setHeaderText(null);
+        alert.setContentText("Your order has been placed successfully!\n"
+        		+ "Total Cost: " + cart.totalCost() + " $");
+        alert.showAndWait();
+        cart.empty();
+        updateTotalCost();
+    }
+
+    @FXML
+    private void btnPlayPressed(ActionEvent event) {
+        Media media = tblMedia.getSelectionModel().getSelectedItem();
+        if (media instanceof Playable) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Playing Media");
+            alert.setHeaderText(null);
+            alert.setContentText(media.play());
+            alert.showAndWait();
+        }
+    }
+
+    private void updateTotalCost() {
+        Platform.runLater(() -> {
+            if (lblTotalCost != null) {
+                lblTotalCost.setText(String.format(" %.2f $", cart.totalCost()));
+            } else {
+                System.err.println("lblTotalCost is null!");
+            }
+        });
+    }
+
 }
