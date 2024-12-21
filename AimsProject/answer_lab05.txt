@@ -1,0 +1,5 @@
+1. Explanation of What Happens Without Handling Exceptions
+If the exceptions thrown by the play() methods of Media objects are not handled:
+- The program will terminate abruptly when an exception is thrown.
+- The stack trace will be printed to the console, and no meaningful message will be shown to the user.
+- Any subsequent code after the exception will not execute.
