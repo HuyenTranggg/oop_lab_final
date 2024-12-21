@@ -3,6 +3,7 @@ package hust.soict.hedspi.aims.screen;
 import java.util.function.Predicate;
 
 import hust.soict.hedspi.aims.cart.Cart;
+import hust.soict.hedspi.aims.exception.PlayerException;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
 import javafx.application.Platform;
@@ -164,19 +165,55 @@ public class CartScreenController {
         cart.empty();
         updateTotalCost();
     }
-
+/*
     @FXML
     private void btnPlayPressed(ActionEvent event) {
         Media media = tblMedia.getSelectionModel().getSelectedItem();
         if (media instanceof Playable) {
+        	Playable playableMedia = (Playable) media;
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Playing Media");
             alert.setHeaderText(null);
-            alert.setContentText(media.play());
+            alert.setContentText(playableMedia.play());
             alert.showAndWait();
         }
     }
+*/
+	@FXML
+	private void btnPlayPressed(ActionEvent event) {
+	    // Lấy đối tượng Media được chọn
+	    Media media = tblMedia.getSelectionModel().getSelectedItem();
+	    
+	    if (media instanceof Playable) {
+	        Playable playableMedia = (Playable) media;
+	        try {
+	            // Gọi phương thức play() và hiển thị thông báo thành công
+	            String playMessage = playableMedia.play();
+	            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	            alert.setTitle("Playing Media");
+	            alert.setHeaderText(null);
+	            alert.setContentText(playMessage);
+	            alert.showAndWait();
+	        } catch (PlayerException e) {
+	            // Xử lý ngoại lệ và hiển thị thông báo lỗi
+	            Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setTitle("Error");
+	            alert.setHeaderText("Cannot Play Media");
+	            alert.setContentText(e.getMessage());
+	            alert.showAndWait();
+	            e.printStackTrace(); // In stack trace ra console (nếu cần debug)
+	        }
+	    } else {
+	        // Hiển thị thông báo nếu Media không thể phát
+	        Alert alert = new Alert(Alert.AlertType.WARNING);
+	        alert.setTitle("Warning");
+	        alert.setHeaderText(null);
+	        alert.setContentText("Selected media cannot be played!");
+	        alert.showAndWait();
+	    }
+	}
 
+	
     private void updateTotalCost() {
         Platform.runLater(() -> {
             if (lblTotalCost != null) {
