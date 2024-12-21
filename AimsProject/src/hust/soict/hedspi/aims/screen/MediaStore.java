@@ -53,33 +53,32 @@ public class MediaStore extends JPanel{
             
             // them su kien cho nut play
             playButton.addActionListener(e -> {
-            	
-                // Tạo và hiển thị JDialog
-                JDialog playDialog = new JDialog();
-                playDialog.setTitle("Playing Media");
-                playDialog.setSize(300, 200);
-                playDialog.setLocationRelativeTo(null); // Căn giữa màn hình
+                try {
+                    // Gọi phương thức play() từ Playable
+                    Playable playableMedia = (Playable) media; // Ép kiểu sang Playable
+                    String playInfo = playableMedia.play(); // Gọi play()
 
-                // Hiển thị thông báo
-                JLabel message = new JLabel("Playing: " + media.getTitle());
-                message.setHorizontalAlignment(JLabel.CENTER);
-                playDialog.add(message);
+                    // Tạo và hiển thị JDialog
+                    JDialog playDialog = new JDialog();
+                    playDialog.setTitle("Playing Media");
+                    playDialog.setSize(400, 300);
+                    playDialog.setLocationRelativeTo(null); // Căn giữa màn hình
 
-                // Gọi phương thức play() từ Playable
-                String playInfo = media.play();
-                
-                // Hiển thị thông tin trong JTextArea (cho phép hiển thị nhiều dòng)
-                JTextArea textArea = new JTextArea(playInfo);
-                textArea.setEditable(false);
-                textArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-                JScrollPane scrollPane = new JScrollPane(textArea); // Cho phép cuộn nếu nội dung dài
+                    // Hiển thị thông tin trong JTextArea
+                    JTextArea textArea = new JTextArea(playInfo);
+                    textArea.setEditable(false);
+                    textArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+                    JScrollPane scrollPane = new JScrollPane(textArea); // Cho phép cuộn nếu nội dung dài
 
-                // Thêm JTextArea vào JDialog
-                playDialog.add(scrollPane);
-                
-                // Hiển thị JDialog
-                playDialog.setVisible(true);
+                    playDialog.add(scrollPane); // Thêm JTextArea vào JDialog
+                    playDialog.setVisible(true); // Hiển thị JDialog
+                } catch (Exception ex) {
+                    // Hiển thị thông báo lỗi nếu phát sinh lỗi khi play()
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Play Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
             });
+
         }
 
         this.add(Box.createVerticalGlue());
